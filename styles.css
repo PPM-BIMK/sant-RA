@@ -1,0 +1,192 @@
+:root{
+  --bg: #161616;
+  --bg-2: #1c1c1c;
+  --panel: #202020;
+  --panel-hover: #262626;
+  --grid-line: #333333;
+  --text: #f0f0f0;
+  --text-dim: #a3a3a3;
+  --text-faint: #6b6b6b;
+  --teal: #3f9d94;
+  --teal-bright: #5fc2b8;
+  --amber: #d9a441;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+}
+
+body{
+  background-color: var(--bg);
+  padding: clamp(24px, 5vw, 72px) clamp(20px, 6vw, 96px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 6vh, 64px);
+}
+
+header{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid var(--grid-line);
+  padding-bottom: clamp(20px, 4vh, 32px);
+}
+
+h1{
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.01em;
+}
+
+main{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3vw, 32px);
+}
+
+@media (max-width: 760px){
+  main{ grid-template-columns: 1fr; }
+}
+
+.card{
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--grid-line);
+  padding: 0;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+
+.card:hover, .card:focus-visible{
+  background: var(--panel-hover);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+
+.card:focus-visible{
+  outline: 2px solid var(--teal-bright);
+  outline-offset: 3px;
+}
+
+/* corner registration ticks — echoes georeferencing control points */
+.tick{
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
+.card:hover .tick, .card:focus-visible .tick{ opacity: 1; border-color: var(--teal-bright) !important; }
+.tick.tl{ top: 10px; left: 10px; border-top: 1px solid var(--text-faint); border-left: 1px solid var(--text-faint); }
+.tick.tr{ top: 10px; right: 10px; border-top: 1px solid var(--text-faint); border-right: 1px solid var(--text-faint); }
+.tick.bl{ bottom: 10px; left: 10px; border-bottom: 1px solid var(--text-faint); border-left: 1px solid var(--text-faint); }
+.tick.br{ bottom: 10px; right: 10px; border-bottom: 1px solid var(--text-faint); border-right: 1px solid var(--text-faint); }
+
+.card-body{
+  padding: clamp(28px, 4vw, 40px) clamp(24px, 4vw, 36px) clamp(20px, 3vw, 28px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card-diagram{
+  width: 100%;
+  height: 96px;
+  display: block;
+}
+
+.card-diagram path{
+  stroke: var(--teal);
+  stroke-width: 1.2;
+  fill: none;
+  opacity: 0.85;
+}
+
+.card-diagram circle{
+  stroke: var(--amber);
+  stroke-width: 1.2;
+  fill: none;
+  opacity: 0.85;
+}
+
+.card-name{
+  font-family: var(--mono);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.card-cta{
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--teal-bright);
+}
+
+.card-cta .arrow{ transition: transform 0.25s ease; }
+.card:hover .card-cta .arrow, .card:focus-visible .card-cta .arrow{ transform: translateX(4px); }
+
+/* title block, styled after a drawing sheet's stamp */
+.title-block{
+  border-top: 1px solid var(--grid-line);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  font-family: var(--mono);
+}
+
+.tb-field{
+  padding: 12px clamp(16px, 3vw, 22px);
+  border-right: 1px solid var(--grid-line);
+}
+.tb-field:last-child{ border-right: none; }
+
+.tb-label{
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 4px;
+}
+
+.tb-value{
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--grid-line);
+  padding-top: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .card, .card-cta .arrow{ transition: none; }
+}
