@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValløRA — PPM BIM-portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="topnav">
+    <a class="nav-home" href="index.html"><span class="glyph">⌂</span> PPM BIM-portal</a>
+    <span class="nav-divider"></span>
+    <div class="nav-project accent-energy">
+      <span class="name">ValløRA</span>
+      <span class="sub">Prosjekt 1355 · Tønsberg Renseanlegg IKS</span>
+    </div>
+    <div class="nav-menu accent-energy">
+      <button class="nav-menu-toggle" aria-haspopup="true" aria-expanded="false">Meny <span class="caret">▾</span></button>
+      <ul class="nav-dropdown">
+        <li><a href="#oversikt" data-tab="oversikt">Oversikt</a></li>
+        <li><a href="#bcf" data-tab="bcf">BCF <span class="tag">issues</span></a></li>
+        <li><a href="#ids" data-tab="ids">IDS <span class="tag">regelsett</span></a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="project-page">
+
+    <section id="oversikt" class="tab-section">
+      <div class="section-head">
+        <span class="eyebrow">Oversikt</span>
+        <h2>ValløRA</h2>
+        <p>Forprosjekt for Tønsberg Renseanlegg IKS. Modellgrunnlag for prosessanlegg og VA-infrastruktur, med BCF for avviks- og problemsporing og IDS for kontroll av leveransekrav mot modellene.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><span class="label">Prosjektnr</span><span class="value">1355</span></div>
+        <div class="stat"><span class="label">Status</span><span class="value">Forprosjekt</span></div>
+        <div class="stat"><span class="label">Åpne BCF-saker</span><span class="value">4</span></div>
+        <div class="stat"><span class="label">IDS bestått</span><span class="value">12 / 15</span></div>
+      </div>
+      <p class="note">Eksempeldata — koblet mot BIMcollab og valideringsverktøy når integrasjon er på plass.</p>
+    </section>
+
+    <section id="bcf" class="tab-section">
+      <div class="section-head">
+        <span class="eyebrow">BCF</span>
+        <h2>Avviks- og problemsporing</h2>
+        <p>Building Collaboration Format — saker utvekslet mellom fagmodeller og prosjekteringsverktøy.</p>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>ID</th><th>Tittel</th><th>Fag</th><th>Prioritet</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>BCF-018</td><td>Konflikt prosessrør / betongdekke basseng 2</td><td>RIP / RIB</td><td>Høy</td><td><span class="badge open">Åpen</span></td></tr>
+            <tr><td>BCF-016</td><td>Manglende kapasitet kabelgate el-rom</td><td>RIE</td><td>Middels</td><td><span class="badge progress">Under arbeid</span></td></tr>
+            <tr><td>BCF-013</td><td>Avvik terrengmodell mot eksisterende kai</td><td>RIG</td><td>Lav</td><td><span class="badge closed">Lukket</span></td></tr>
+            <tr><td>BCF-009</td><td>Pumpeledning krysser dreneringsgrøft</td><td>RIVA</td><td>Høy</td><td><span class="badge open">Åpen</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Eksempeldata — visning forberedt for direkte BCF-import.</p>
+    </section>
+
+    <section id="ids" class="tab-section">
+      <div class="section-head">
+        <span class="eyebrow">IDS</span>
+        <h2>Leveransekrav</h2>
+        <p>Information Delivery Specification — regelsett som validerer at fagmodellene tilfredsstiller prosjektets leveransekrav.</p>
+      </div>
+      <div class="ruleset-list">
+        <div class="ruleset">
+          <div>
+            <div class="name">Klassifisering NS 3451</div>
+            <div class="desc">Alle bygningsdeler skal ha gyldig klassifiseringskode</div>
+          </div>
+          <span class="badge pass">Bestått</span>
+        </div>
+        <div class="ruleset">
+          <div>
+            <div class="name">Egenskapssett — Prosessutstyr</div>
+            <div class="desc">Påkrevd driftsdata på pumper, ventiler og basseng</div>
+          </div>
+          <span class="badge fail">Avvik</span>
+        </div>
+        <div class="ruleset">
+          <div>
+            <div class="name">Georeferering</div>
+            <div class="desc">Modell skal være plassert i prosjektets koordinatsystem</div>
+          </div>
+          <span class="badge pass">Bestått</span>
+        </div>
+        <div class="ruleset">
+          <div>
+            <div class="name">Navnekonvensjon filer</div>
+            <div class="desc">Filnavn iht. PPM leveranseplan, mal VAL-[fag]-[bygg]-[nivå]</div>
+          </div>
+          <span class="badge pass">Bestått</span>
+        </div>
+      </div>
+      <p class="note">Eksempeldata — kobles til automatisk IDS-validering i CDE.</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>PPM BIM-PORTAL / VALLØRA</span>
+    <span id="clock"></span>
+  </footer>
+
+  <script src="project.js"></script>
+
+</body>
+</html>
