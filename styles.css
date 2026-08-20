@@ -1,23 +1,23 @@
 :root{
-  --bg: #141d18;
-  --bg-2: #19241d;
-  --panel: #1e2a22;
-  --panel-hover: #253a2b;
-  --grid-line: #37493d;
-  --grid-line-soft: #2b3a30;
-  --text: #f4f8f4;
-  --text-dim: #bdcbc0;
-  --text-faint: #82927e;
+  --bg: #f4f8f4;
+  --bg-2: #eaf1ea;
+  --panel: #ffffff;
+  --panel-hover: #eaf5ee;
+  --grid-line: #d6e0d7;
+  --grid-line-soft: #e4ece4;
+  --text: #1b241d;
+  --text-dim: #52604f;
+  --text-faint: #7f8c7a;
 
   /* "anlegg" — infrastructure / drift */
-  --plant: #46d38a;
-  --plant-bright: #7bebae;
+  --plant: #2fa563;
+  --plant-bright: #187a48;
   /* "energi" — energy accent */
-  --energy: #ffa94d;
-  --energy-bright: #ffc37e;
+  --energy: #ff9a3d;
+  --energy-bright: #d97417;
 
-  --danger: #e8735a;
-  --ok: #5fc27a;
+  --danger: #d1503a;
+  --ok: #2f9e57;
 
   --mono: 'IBM Plex Mono', 'Courier New', monospace;
   --sans: 'IBM Plex Sans', -apple-system, sans-serif;
@@ -35,8 +35,8 @@ html, body{
 
 body{
   background:
-    radial-gradient(circle at 100% 0%, rgba(255,169,77,0.06), transparent 45%),
-    radial-gradient(circle at 0% 100%, rgba(70,211,138,0.09), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(255,154,61,0.08), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(47,165,99,0.10), transparent 45%),
     var(--bg);
   display: flex;
   flex-direction: column;
@@ -369,7 +369,7 @@ footer{
   min-width: 200px;
   background: var(--panel);
   border: 1px solid var(--grid-line);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+  box-shadow: 0 12px 28px rgba(30,45,32,0.12);
   display: none;
   flex-direction: column;
   gap: 2px;
