@@ -48,11 +48,21 @@ a{ color: inherit; }
 /* ---------- landing page ---------- */
 
 .page{
+  position: relative;
   padding: clamp(24px, 5vw, 72px) clamp(20px, 6vw, 96px);
   display: flex;
   flex-direction: column;
   gap: clamp(32px, 6vh, 64px);
   flex: 1;
+}
+
+.page-logo{
+  position: absolute;
+  top: clamp(24px, 5vw, 72px);
+  left: clamp(20px, 6vw, 96px);
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
 }
 
 .hero-wrap{
@@ -71,12 +81,6 @@ header.hero{
   border-bottom: 1px solid var(--grid-line);
   padding-bottom: clamp(20px, 4vh, 32px);
   width: 100%;
-}
-
-.hero-logo{
-  width: clamp(220px, 26vw, 320px);
-  height: clamp(220px, 26vw, 320px);
-  border-radius: 18px;
 }
 
 .hero-subtitle{
