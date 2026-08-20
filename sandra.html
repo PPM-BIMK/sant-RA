@@ -38,6 +38,7 @@
       <a class="nav-tab" href="#oversikt" data-tab="oversikt">Oversikt</a>
       <a class="nav-tab" href="#bcf" data-tab="bcf">BCF</a>
       <a class="nav-tab" href="#ids" data-tab="ids">IDS</a>
+      <a class="nav-tab" href="sandra-ifc.html">Modell</a>
     </nav>
   </header>
 
@@ -67,7 +68,7 @@
             <div class="model-embed">
               <canvas id="mini-ifc-canvas"></canvas>
               <div class="ifc-status" id="mini-ifc-status">Ingen modell lastet.</div>
-              <a class="ifc-open-link" href="sandra-ifc.html">Åpne full IFC-visning →</a>
+              <a class="ifc-open-link" href="sandra-ifc.html">Åpne full modellvisning →</a>
             </div>
           </div>
         </div>
@@ -160,7 +161,7 @@
     const miniCanvas = document.getElementById('mini-ifc-canvas');
     const miniStatus = document.getElementById('mini-ifc-status');
     const miniViewer = createIfcViewer(miniCanvas, text => { miniStatus.textContent = text; });
-    const defaultModel = SANDRA_MODELS.find(m => m.available);
+    const defaultModel = SANDRA_MODELS.find(m => m.url);
 
     document.getElementById('mini-ifc-load').addEventListener('click', () => {
       if (defaultModel) miniViewer.loadModels([defaultModel]);

@@ -24,7 +24,6 @@ export function createIfcViewer(canvas, onStatus = () => {}) {
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
   dirLight.position.set(10, 20, 10);
   scene.add(dirLight);
-  scene.add(new THREE.GridHelper(60, 60, 0xdee5df, 0xeaf0eb));
 
   const ifcLoader = new IFCLoader();
   ifcLoader.ifcManager.setWasmPath(WASM_PATH);
@@ -59,16 +58,27 @@ export function createIfcViewer(canvas, onStatus = () => {}) {
   async function loadModels(files) {
     clearModels();
     if (!files.length) { onStatus('Ingen modell valgt.'); return; }
-    onStatus(`Laster ${files.length} modell${files.length > 1 ? 'er' : ''} …`);
+
+    const loadable = files.filter(f => f.url);
+    const missing = files.filter(f => !f.url);
+
+    if (!loadable.length) {
+      onStatus(`Ikke tilgjengelig: ${missing.map(f => f.label).join(', ')}`);
+      return;
+    }
+
+    onStatus(`Laster ${loadable.length} modell${loadable.length > 1 ? 'er' : ''} …`);
     try {
-      for (const file of files) {
+      for (const file of loadable) {
         const model = await ifcLoader.loadAsync(file.url);
         model.name = file.label;
         scene.add(model);
         loadedModels.push(model);
       }
       frameAll();
-      onStatus(`Lastet: ${files.map(f => f.label).join(', ')}`);
+      let status = `Lastet: ${loadable.map(f => f.label).join(', ')}`;
+      if (missing.length) status += ` — ikke tilgjengelig: ${missing.map(f => f.label).join(', ')}`;
+      onStatus(status);
     } catch (err) {
       console.error(err);
       onStatus(`Kunne ikke laste modell: ${err.message || err}`);

@@ -525,7 +525,7 @@ footer{
 .panel-body{ padding: 18px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 
 /* mini IFC embed */
-.model-embed{ position: relative; width: 100%; height: 260px; background: var(--bg-2); border: 1px solid var(--grid-line); }
+.model-embed{ position: relative; width: 100%; height: clamp(320px, 45vw, 520px); background: var(--bg-2); border: 1px solid var(--grid-line); }
 .model-embed canvas{ width: 100%; height: 100%; display: block; }
 .model-embed .ifc-status{ font-size: 11px; }
 .model-embed .ifc-open-link{

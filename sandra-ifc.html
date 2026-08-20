@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SandRA — IFC-visning</title>
+<title>SandRA — Modell</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -38,16 +38,16 @@
       <a class="nav-tab" href="sandra.html#oversikt">Oversikt</a>
       <a class="nav-tab" href="sandra.html#bcf">BCF</a>
       <a class="nav-tab" href="sandra.html#ids">IDS</a>
-      <a class="nav-tab active" href="sandra-ifc.html">IFC</a>
+      <a class="nav-tab active" href="sandra-ifc.html">Modell</a>
     </nav>
   </header>
 
   <div class="project-page">
 
     <div class="section-head">
-      <span class="eyebrow">IFC</span>
+      <span class="eyebrow">Modell</span>
       <h2>3D-modell</h2>
-      <p>Velg én eller flere IFC-modeller for å se dem samtidig. Modellene lastes direkte i nettleseren.</p>
+      <p>Velg IFC-modeller for å se dem samtidig. AGS og MBBR er alternative prosessmodeller — å velge den ene bytter automatisk ut den andre. Modellene lastes direkte i nettleseren.</p>
     </div>
 
     <div class="ifc-layout">
@@ -55,7 +55,7 @@
         <div class="ifc-sidebar-head">Modeller</div>
         <ul class="ifc-model-list" id="ifc-model-list"></ul>
         <button class="btn-primary" id="ifc-load-btn" type="button">Last valgte modeller</button>
-        <p class="note">AGS og MBBR er produksjonsmodeller (100+ MB) og må hostes eksternt før de kan lastes her.</p>
+        <p class="note">AGS og MBBR er produksjonsmodeller (100+ MB) — valget virker, men selve filen må hostes eksternt før den faktisk kan lastes inn her.</p>
       </aside>
 
       <div class="ifc-canvas-wrap">
@@ -82,20 +82,34 @@
     const loadBtn = document.getElementById('ifc-load-btn');
 
     listEl.innerHTML = SANDRA_MODELS.map(m => `
-      <li class="ifc-model-row ${m.available ? '' : 'unavailable'}">
+      <li class="ifc-model-row">
         <label>
-          <input type="checkbox" value="${m.id}" ${m.available ? '' : 'disabled'} ${m.id === 'ark' ? 'checked' : ''}>
+          <input type="checkbox" value="${m.id}" ${m.id === 'ark' ? 'checked' : ''}>
           ${m.label}
         </label>
-        ${m.available ? '' : '<span class="badge">Ikke tilgjengelig</span>'}
+        ${m.url ? '' : '<span class="badge">Ikke hostet</span>'}
       </li>
     `).join('');
 
     const viewer = createIfcViewer(canvas, text => { statusEl.textContent = text; });
 
+    function checkbox(id) {
+      return listEl.querySelector(`input[value="${id}"]`);
+    }
+
+    // AGS and MBBR are mutually exclusive process-model alternatives:
+    // picking one selects it plus every base model, and drops the other.
+    ['ags', 'mbbr'].forEach(id => {
+      checkbox(id).addEventListener('change', e => {
+        if (!e.target.checked) return;
+        SANDRA_MODELS.filter(m => m.group === 'base').forEach(m => { checkbox(m.id).checked = true; });
+        checkbox(id === 'ags' ? 'mbbr' : 'ags').checked = false;
+      });
+    });
+
     function selectedFiles() {
       const checked = Array.from(listEl.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
-      return SANDRA_MODELS.filter(m => checked.includes(m.id) && m.available);
+      return SANDRA_MODELS.filter(m => checked.includes(m.id));
     }
 
     loadBtn.addEventListener('click', () => viewer.loadModels(selectedFiles()));
