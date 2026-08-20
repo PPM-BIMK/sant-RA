@@ -39,7 +39,7 @@ document.addEventListener('keydown', (e) => {
 
 // tab switching, hash-driven so links/back-button work
 const tabs = document.querySelectorAll('.tab-section');
-const tabLinks = document.querySelectorAll('.nav-dropdown a[data-tab]');
+const tabLinks = document.querySelectorAll('.nav-tab[data-tab]');
 
 function showTab(id) {
   let matched = false;

@@ -264,7 +264,32 @@ footer{
   background: var(--grid-line);
 }
 
-.nav-project-menu{ margin-right: auto; }
+.nav-tabs{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: auto;
+}
+
+.nav-tab{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 9px 14px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.nav-tab:hover, .nav-tab:focus-visible{
+  color: var(--text);
+  background: var(--panel);
+}
+.nav-tab.active{ color: var(--text); }
+.topnav.accent-plant .nav-tab.active{ color: var(--plant-bright); border-bottom-color: var(--plant); }
+.topnav.accent-energy .nav-tab.active{ color: var(--energy-bright); border-bottom-color: var(--energy); }
 
 .project-toggle{
   display: inline-flex;
