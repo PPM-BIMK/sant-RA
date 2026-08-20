@@ -1,10 +1,10 @@
 :root{
-  --bg: #f4f8f4;
-  --bg-2: #eaf1ea;
+  --bg: #ffffff;
+  --bg-2: #ffffff;
   --panel: #ffffff;
-  --panel-hover: #eaf5ee;
-  --grid-line: #d6e0d7;
-  --grid-line-soft: #e4ece4;
+  --panel-hover: #f0f7f2;
+  --grid-line: #dee5df;
+  --grid-line-soft: #eaf0eb;
   --text: #1b241d;
   --text-dim: #52604f;
   --text-faint: #7f8c7a;
@@ -35,8 +35,8 @@ html, body{
 
 body{
   background:
-    radial-gradient(circle at 100% 0%, rgba(255,154,61,0.08), transparent 45%),
-    radial-gradient(circle at 0% 100%, rgba(47,165,99,0.10), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(255,154,61,0.05), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(47,165,99,0.06), transparent 40%),
     var(--bg);
   display: flex;
   flex-direction: column;
