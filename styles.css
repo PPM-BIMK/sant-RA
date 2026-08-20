@@ -63,12 +63,10 @@ header.hero{
   padding-bottom: clamp(20px, 4vh, 32px);
 }
 
-header.hero .eyebrow{
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--energy-bright);
+header.hero .hero-subtitle{
+  margin: 0;
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--text-dim);
 }
 
 h1{
@@ -196,7 +194,6 @@ main{
   letter-spacing: 0.05em;
   color: var(--plant-bright);
 }
-.card.card-energy .card-cta{ color: var(--energy-bright); }
 
 .card-cta .arrow{ transition: transform 0.25s ease; }
 .card:hover .card-cta .arrow, .card:focus-visible .card-cta .arrow{ transform: translateX(4px); }
