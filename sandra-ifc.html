@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SandRA — IFC-visning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260820">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+
+  <header class="topnav accent-plant">
+    <a class="nav-home" href="index.html"><img class="nav-logo" src="images/ppm-logo.png" alt="PPM Prosjekt"></a>
+    <span class="nav-divider"></span>
+    <div class="nav-menu nav-project-menu">
+      <button class="nav-menu-toggle project-toggle" aria-haspopup="true" aria-expanded="false">
+        <span class="id">
+          <span class="name">SandRA</span>
+          <span class="sub">Prosjekt 1354 · Sandefjord Kommune</span>
+        </span>
+        <span class="caret">▾</span>
+      </button>
+      <ul class="nav-dropdown">
+        <li><a href="sandra.html" class="active">SandRA <span class="proj-no">1354</span></a></li>
+        <li><a href="vallora.html">ValløRA <span class="proj-no">1355</span></a></li>
+      </ul>
+    </div>
+    <nav class="nav-tabs">
+      <a class="nav-tab" href="sandra.html#oversikt">Oversikt</a>
+      <a class="nav-tab" href="sandra.html#bcf">BCF</a>
+      <a class="nav-tab" href="sandra.html#ids">IDS</a>
+      <a class="nav-tab active" href="sandra-ifc.html">IFC</a>
+    </nav>
+  </header>
+
+  <div class="project-page">
+
+    <div class="section-head">
+      <span class="eyebrow">IFC</span>
+      <h2>3D-modell</h2>
+      <p>Velg én eller flere IFC-modeller for å se dem samtidig. Modellene lastes direkte i nettleseren.</p>
+    </div>
+
+    <div class="ifc-layout">
+      <aside class="ifc-sidebar">
+        <div class="ifc-sidebar-head">Modeller</div>
+        <ul class="ifc-model-list" id="ifc-model-list"></ul>
+        <button class="btn-primary" id="ifc-load-btn" type="button">Last valgte modeller</button>
+        <p class="note">AGS og MBBR er produksjonsmodeller (100+ MB) og må hostes eksternt før de kan lastes her.</p>
+      </aside>
+
+      <div class="ifc-canvas-wrap">
+        <canvas id="ifc-canvas"></canvas>
+        <div class="ifc-status" id="ifc-status">Ingen modell lastet.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>PPM PROSJEKT</span>
+    <span id="clock"></span>
+  </footer>
+
+  <script src="project.js?v=20260820"></script>
+  <script type="module">
+    import { createIfcViewer } from './ifc-viewer.js';
+    import { SANDRA_MODELS } from './models/sandra-models.js';
+
+    const listEl = document.getElementById('ifc-model-list');
+    const statusEl = document.getElementById('ifc-status');
+    const canvas = document.getElementById('ifc-canvas');
+    const loadBtn = document.getElementById('ifc-load-btn');
+
+    listEl.innerHTML = SANDRA_MODELS.map(m => `
+      <li class="ifc-model-row ${m.available ? '' : 'unavailable'}">
+        <label>
+          <input type="checkbox" value="${m.id}" ${m.available ? '' : 'disabled'} ${m.id === 'ark' ? 'checked' : ''}>
+          ${m.label}
+        </label>
+        ${m.available ? '' : '<span class="badge">Ikke tilgjengelig</span>'}
+      </li>
+    `).join('');
+
+    const viewer = createIfcViewer(canvas, text => { statusEl.textContent = text; });
+
+    function selectedFiles() {
+      const checked = Array.from(listEl.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
+      return SANDRA_MODELS.filter(m => checked.includes(m.id) && m.available);
+    }
+
+    loadBtn.addEventListener('click', () => viewer.loadModels(selectedFiles()));
+
+    // load the default selection (ARK) on first visit
+    viewer.loadModels(selectedFiles());
+  </script>
+
+</body>
+</html>

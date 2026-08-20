@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=20260820">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.module.js"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -49,6 +56,29 @@
         <div class="stat"><span class="label">IDS bestått</span><span class="value">18 / 21</span></div>
       </div>
       <p class="note">Eksempeldata — koblet mot BIMcollab og valideringsverktøy når integrasjon er på plass.</p>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <span>3D-modell</span>
+            <button class="btn-primary" id="mini-ifc-load" type="button">Last inn IFC</button>
+          </div>
+          <div class="panel-body">
+            <div class="model-embed">
+              <canvas id="mini-ifc-canvas"></canvas>
+              <div class="ifc-status" id="mini-ifc-status">Ingen modell lastet.</div>
+              <a class="ifc-open-link" href="sandra-ifc.html">Åpne full IFC-visning →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span>Neste milepæl</span></div>
+          <div class="panel-body" id="milestone-panel">
+            <p class="note">Laster samspillsplan …</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="bcf" class="tab-section">
@@ -121,6 +151,66 @@
   </footer>
 
   <script src="project.js?v=20260820"></script>
+  <script type="module">
+    import { createIfcViewer } from './ifc-viewer.js';
+    import { SANDRA_MODELS } from './models/sandra-models.js';
+    import { SANDRA_MILESTONES } from './models/sandra-milestones.js';
+
+    // mini 3D-modell embed — loads the ARK model by default
+    const miniCanvas = document.getElementById('mini-ifc-canvas');
+    const miniStatus = document.getElementById('mini-ifc-status');
+    const miniViewer = createIfcViewer(miniCanvas, text => { miniStatus.textContent = text; });
+    const defaultModel = SANDRA_MODELS.find(m => m.available);
+
+    document.getElementById('mini-ifc-load').addEventListener('click', () => {
+      if (defaultModel) miniViewer.loadModels([defaultModel]);
+    });
+
+    // neste milepæl
+    const fmt = iso => {
+      const d = new Date(iso + 'T00:00:00');
+      const pad = n => String(n).padStart(2, '0');
+      return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`;
+    };
+
+    function renderMilestones() {
+      const panel = document.getElementById('milestone-panel');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const upcoming = SANDRA_MILESTONES
+        .map(m => ({ ...m, when: new Date(m.date + 'T00:00:00') }))
+        .filter(m => m.when >= today)
+        .sort((a, b) => a.when - b.when);
+
+      if (!upcoming.length) {
+        panel.innerHTML = '<p class="note">Ingen kommende milepæler.</p>';
+        return;
+      }
+
+      const next = upcoming[0];
+      const after = upcoming[1];
+      const days = Math.round((next.when - today) / 86400000);
+      const shown = next.deliverables.slice(0, 4);
+      const extra = next.deliverables.length - shown.length;
+
+      panel.innerHTML = `
+        <div class="milestone-date">${fmt(next.date)}</div>
+        <div class="milestone-countdown">Om ${days} dag${days === 1 ? '' : 'er'}</div>
+        <ul class="milestone-list">
+          ${shown.map(d => `<li>${d}</li>`).join('')}
+        </ul>
+        ${extra > 0 ? `<div class="milestone-more">+ ${extra} flere leveranser samme dag</div>` : ''}
+        ${after ? `
+          <div class="milestone-next">
+            <span class="milestone-next-label">Deretter — ${fmt(after.date)}</span>
+            <ul class="milestone-list">
+              ${after.deliverables.slice(0, 2).map(d => `<li>${d}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+      `;
+    }
+    renderMilestones();
+  </script>
 
 </body>
 </html>

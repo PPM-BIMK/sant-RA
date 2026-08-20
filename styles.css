@@ -472,6 +472,128 @@ footer{
 
 .note{ font-family: var(--mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.02em; }
 
+.btn-primary{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--plant);
+  color: #fff;
+  border: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-primary:hover, .btn-primary:focus-visible{ background: var(--plant-bright); }
+
+/* ---------- Oversikt: 3D-modell + neste milepæl panels ---------- */
+
+.panel-grid{
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 1px;
+  background: var(--grid-line);
+  border: 1px solid var(--grid-line);
+}
+@media (max-width: 900px){
+  .panel-grid{ grid-template-columns: 1fr; }
+}
+
+.panel{
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--grid-line);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.panel-body{ padding: 18px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+/* mini IFC embed */
+.model-embed{ position: relative; width: 100%; height: 260px; background: var(--bg-2); border: 1px solid var(--grid-line); }
+.model-embed canvas{ width: 100%; height: 100%; display: block; }
+.model-embed .ifc-status{ font-size: 11px; }
+.model-embed .ifc-open-link{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--plant-bright);
+  text-decoration: none;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 8px;
+}
+.model-embed .ifc-open-link:hover{ text-decoration: underline; }
+
+/* milestone panel */
+.milestone-date{ font-family: var(--mono); font-size: 20px; font-weight: 600; }
+.milestone-countdown{ font-family: var(--mono); font-size: 12px; color: var(--plant-bright); letter-spacing: 0.04em; }
+.milestone-list{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.milestone-list li{ padding: 8px 10px; border: 1px solid var(--grid-line-soft); display: flex; justify-content: space-between; gap: 8px; }
+.milestone-more{ font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+.milestone-next{ border-top: 1px solid var(--grid-line); padding-top: 12px; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; }
+.milestone-next-label{ font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); }
+
+/* ---------- IFC page ---------- */
+
+.ifc-layout{
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1px;
+  background: var(--grid-line);
+  border: 1px solid var(--grid-line);
+  min-height: 70vh;
+}
+@media (max-width: 760px){
+  .ifc-layout{ grid-template-columns: 1fr; min-height: auto; }
+}
+
+.ifc-sidebar{
+  background: var(--panel);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ifc-sidebar-head{ font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+
+.ifc-model-list{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--grid-line); border: 1px solid var(--grid-line); }
+.ifc-model-row{ background: var(--panel); padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; }
+.ifc-model-row label{ display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.ifc-model-row.unavailable{ color: var(--text-faint); }
+.ifc-model-row.unavailable label{ cursor: not-allowed; }
+
+.ifc-canvas-wrap{ position: relative; background: var(--bg-2); }
+.ifc-canvas-wrap canvas{ width: 100%; height: 100%; display: block; }
+.ifc-status{
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.9);
+  padding: 6px 10px;
+  border: 1px solid var(--grid-line);
+  max-width: calc(100% - 24px);
+}
+
 @media (prefers-reduced-motion: reduce){
   .card, .card-cta .arrow, .nav-menu-toggle .caret{ transition: none; }
 }
