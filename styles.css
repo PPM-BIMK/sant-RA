@@ -48,7 +48,6 @@ a{ color: inherit; }
 /* ---------- landing page ---------- */
 
 .page{
-  position: relative;
   padding: clamp(24px, 5vw, 72px) clamp(20px, 6vw, 96px);
   display: flex;
   flex-direction: column;
@@ -56,53 +55,26 @@ a{ color: inherit; }
   flex: 1;
 }
 
+.page-header{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--grid-line);
+  padding-bottom: clamp(20px, 4vh, 32px);
+}
+
 .page-logo{
-  position: absolute;
-  top: clamp(24px, 5vw, 72px);
-  left: clamp(20px, 6vw, 96px);
   width: 80px;
   height: 80px;
   border-radius: 10px;
-}
-
-.hero-wrap{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(24px, 4vh, 40px);
-}
-
-header.hero{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 14px;
-  border-bottom: 1px solid var(--grid-line);
-  padding-bottom: clamp(20px, 4vh, 32px);
-  width: 100%;
+  flex-shrink: 0;
 }
 
 .hero-subtitle{
   margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 26px;
-  border: 1px solid var(--grid-line);
-  border-radius: 999px;
-  background: var(--panel-hover);
-  font-family: var(--mono);
-  font-size: clamp(16px, 1.9vw, 20px);
-  letter-spacing: 0.02em;
-  color: var(--plant-bright);
-}
-.hero-subtitle::before{
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--plant);
+  text-align: center;
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: var(--text-dim);
 }
 
 h1{
