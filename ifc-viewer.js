@@ -5,6 +5,9 @@ import { IFCLoader } from 'https://cdn.jsdelivr.net/npm/three@0.140.0/examples/j
 // web-ifc.wasm lives alongside IFCLoader.js in three's own examples tree at this version.
 const WASM_PATH = 'https://cdn.jsdelivr.net/npm/three@0.140.0/examples/jsm/loaders/ifc/';
 
+// IFCSITE — hidden after load so the flat terrain/site slab doesn't clutter the view.
+const IFCSITE = 4097777520;
+
 // Creates a self-contained IFC viewer bound to one <canvas>.
 // onStatus(text) is called with short human-readable status/error strings.
 export function createIfcViewer(canvas, onStatus = () => {}) {
@@ -74,6 +77,13 @@ export function createIfcViewer(canvas, onStatus = () => {}) {
         model.name = file.label;
         scene.add(model);
         loadedModels.push(model);
+
+        try {
+          const siteIds = ifcLoader.ifcManager.getAllItemsOfType(model.modelID, IFCSITE, false);
+          if (siteIds && siteIds.length) ifcLoader.ifcManager.hideItems(model.modelID, siteIds);
+        } catch (e) {
+          console.warn('Kunne ikke skjule site-elementer:', e);
+        }
       }
       frameAll();
       let status = `Lastet: ${loadable.map(f => f.label).join(', ')}`;
