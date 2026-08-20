@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValløRA — PPM BIM-portal</title>
+<title>ValløRA — RA-portalen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -12,11 +12,20 @@
 <body>
 
   <header class="topnav">
-    <a class="nav-home" href="index.html"><span class="glyph">⌂</span> PPM BIM-portal</a>
+    <a class="nav-home" href="index.html"><span class="glyph">⌂</span> RA-portalen</a>
     <span class="nav-divider"></span>
-    <div class="nav-project accent-energy">
-      <span class="name">ValløRA</span>
-      <span class="sub">Prosjekt 1355 · Tønsberg Renseanlegg IKS</span>
+    <div class="nav-menu nav-project-menu accent-energy">
+      <button class="nav-menu-toggle project-toggle" aria-haspopup="true" aria-expanded="false">
+        <span class="id">
+          <span class="name">ValløRA</span>
+          <span class="sub">Prosjekt 1355 · Tønsberg Renseanlegg IKS</span>
+        </span>
+        <span class="caret">▾</span>
+      </button>
+      <ul class="nav-dropdown">
+        <li><a href="sandra.html">SandRA <span class="proj-no">1354</span></a></li>
+        <li><a href="vallora.html" class="active">ValløRA <span class="proj-no">1355</span></a></li>
+      </ul>
     </div>
     <div class="nav-menu accent-energy">
       <button class="nav-menu-toggle" aria-haspopup="true" aria-expanded="false">Meny <span class="caret">▾</span></button>
@@ -109,7 +118,7 @@
   </div>
 
   <footer>
-    <span>PPM BIM-PORTAL / VALLØRA</span>
+    <span>RA-PORTALEN / VALLØRA</span>
     <span id="clock"></span>
   </footer>
 

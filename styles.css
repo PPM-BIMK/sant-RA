@@ -1,20 +1,20 @@
 :root{
-  --bg: #10151a;
-  --bg-2: #161c22;
-  --panel: #1a2129;
-  --panel-hover: #202932;
-  --grid-line: #2c363f;
-  --grid-line-soft: #232b33;
-  --text: #f2f4f5;
-  --text-dim: #a9b3ba;
-  --text-faint: #6c7780;
+  --bg: #141d18;
+  --bg-2: #19241d;
+  --panel: #1e2a22;
+  --panel-hover: #253a2b;
+  --grid-line: #37493d;
+  --grid-line-soft: #2b3a30;
+  --text: #f4f8f4;
+  --text-dim: #bdcbc0;
+  --text-faint: #82927e;
 
-  /* "anlegg" — infrastructure / water */
-  --plant: #2fb8ac;
-  --plant-bright: #58d6ca;
+  /* "anlegg" — infrastructure / drift */
+  --plant: #46d38a;
+  --plant-bright: #7bebae;
   /* "energi" — energy accent */
-  --energy: #ff9640;
-  --energy-bright: #ffb066;
+  --energy: #ffa94d;
+  --energy-bright: #ffc37e;
 
   --danger: #e8735a;
   --ok: #5fc27a;
@@ -35,8 +35,8 @@ html, body{
 
 body{
   background:
-    radial-gradient(circle at 100% 0%, rgba(255,150,64,0.05), transparent 45%),
-    radial-gradient(circle at 0% 100%, rgba(47,184,172,0.06), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(255,169,77,0.06), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(70,211,138,0.09), transparent 45%),
     var(--bg);
   display: flex;
   flex-direction: column;
@@ -264,27 +264,50 @@ footer{
   background: var(--grid-line);
 }
 
-.nav-project{
+.nav-project-menu{ margin-right: auto; }
+
+.project-toggle{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.project-toggle:hover, .project-toggle:focus-visible{
+  background: var(--panel);
+  border-color: var(--grid-line);
+}
+
+.project-toggle .id{
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-right: auto;
 }
 
-.nav-project .name{
+.project-toggle .name{
   font-family: var(--mono);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: -0.01em;
 }
-.nav-project.accent-plant .name{ color: var(--plant-bright); }
-.nav-project.accent-energy .name{ color: var(--energy-bright); }
+.accent-plant .project-toggle .name{ color: var(--plant-bright); }
+.accent-energy .project-toggle .name{ color: var(--energy-bright); }
 
-.nav-project .sub{
+.project-toggle .sub{
   font-size: 11px;
   color: var(--text-faint);
   font-family: var(--mono);
 }
+
+.nav-dropdown a .proj-no{
+  font-size: 10px;
+  color: var(--text-faint);
+}
+.nav-dropdown a.active .proj-no{ color: inherit; }
 
 .nav-menu{ position: relative; }
 
